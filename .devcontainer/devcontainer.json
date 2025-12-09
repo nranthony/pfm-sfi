@@ -1,0 +1,43 @@
+{
+  "name": "pfm_sfi",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "."
+  },
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "containerEnv": {
+    "DOCKER_HOST": "unix:///run/user/1000/docker.sock"
+  },
+  "runArgs": [
+    "--network=ai-sandbox",
+    "--userns=host",
+    "--gpus",
+    "all",
+    "--env-file",
+    "${localWorkspaceFolder}/.env"
+  ],
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.condaPath": "/root/miniforge3/bin/conda",
+        "python.defaultInterpreterPath": "/root/miniforge3/bin/python",
+        "python.venvPath": "/root/miniforge3/envs",
+        "remote.autoForwardPorts": false
+      },
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-toolsai.jupyter",
+        "ms-python.autopep8",
+        "mhutchie.git-graph"
+      ]
+    }
+  },
+  "forwardPorts": [
+    8080,
+    8501,
+    8188
+  ],
+  "remoteUser": "root",
+  "postCreateCommand": "${containerWorkspaceFolder}/.devcontainer/entrypoint.sh"
+}
