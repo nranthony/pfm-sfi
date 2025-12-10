@@ -43,40 +43,48 @@ pfm-sfi/
 
 ## Getting Started
 
-### Step 1: Create Virtual Environment
+### Step 1: Create Environment
 
-Since no `.venv` folder exists, create one:
+Choose either **Option A (Conda/Mamba - Recommended)** or **Option B (Python venv)**:
+
+#### Option A: Conda/Mamba Environment (Recommended)
+
+Conda/Mamba automatically handles CUDA dependencies:
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate  # On macOS/Linux
+# Using conda
+conda env create -f environment.yml
+conda activate pfm-sfi
+
+# OR using mamba (faster)
+mamba env create -f environment.yml
+mamba activate pfm-sfi
 ```
 
-### Step 2: Install Dependencies
+#### Option B: Python Virtual Environment
 
-Create a `requirements.txt` (project doesn't have one):
+If you prefer venv, you'll need to ensure CUDA is installed separately:
 
 ```bash
-# Create requirements file
-cat > requirements.txt << EOF
-taichi>=1.7.0
-torch>=2.0.0
-numpy>=1.24.0
-loguru>=0.7.0
-EOF
+# Create virtual environment
+python -m venv .venv
+source .venv/bin/activate  # On macOS/Linux
+# .venv\Scripts\activate   # On Windows
 
 # Install dependencies
 pip install -r requirements.txt
 ```
 
-### Step 3: Verify CUDA Setup
+**Note:** With venv, you must have CUDA Toolkit installed separately on your system.
+
+### Step 2: Verify CUDA Setup
 
 ```bash
 # Check if Taichi can access CUDA
 python -c "import taichi as ti; ti.init(arch=ti.cuda); print('CUDA available!')"
 ```
 
-### Step 4: Run Simulations
+### Step 3: Run Simulations
 
 **For 2D simulations (swimming fish):**
 
@@ -114,19 +122,22 @@ File: `3D/hyperparameters.py:24-36`
 
 ## Potential Issues & Solutions
 
-1. **No dependencies file** - Create requirements.txt as shown above
-2. **CUDA requirement** - Ensure you have an NVIDIA GPU with CUDA installed
-3. **High memory usage** - Reduce resolution in hyperparameters.py if needed
-4. **Output location** - Check `io_utils.py` files for output directory configuration
+1. **CUDA requirement** - Ensure you have an NVIDIA GPU with CUDA installed
+   - Conda/Mamba: CUDA is included in environment.yml
+   - venv: Install CUDA Toolkit separately from NVIDIA
+2. **High memory usage** - Reduce resolution in hyperparameters.py if needed
+3. **Output location** - Check `io_utils.py` files for output directory configuration
+4. **PyTorch CUDA compatibility** - If you encounter CUDA version mismatches, update pytorch-cuda version in environment.yml to match your system
 
 ## Next Steps
 
-1. Install dependencies in a virtual environment
-2. Verify CUDA is available
-3. Choose 2D or 3D simulation
-4. Modify `hyperparameters.py` to configure your simulation
-5. Run the appropriate `run.py` file
-6. Check output directory for results (frames/videos)
+1. Create environment using conda/mamba (recommended) or venv
+2. Install dependencies (automatic with conda, or via requirements.txt with venv)
+3. Verify CUDA is available
+4. Choose 2D or 3D simulation
+5. Modify `hyperparameters.py` to configure your simulation
+6. Run the appropriate `run.py` file
+7. Check output directory for results (frames/videos)
 
 ## Key Files to Review
 

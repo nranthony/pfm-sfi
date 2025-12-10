@@ -1,0 +1,16 @@
+# PFM-SFI Dependencies
+# IMPORTANT: Requires NVIDIA GPU with CUDA Toolkit installed separately
+# - 2D simulations: minimum 3GB GPU memory
+# - 3D simulations: minimum 10.5GB GPU memory
+
+# Core simulation framework
+taichi>=1.7.0
+
+# Deep learning framework (for 3D simulations)
+torch>=2.0.0
+
+# Numerical computing
+numpy>=1.24.0
+
+# Logging
+loguru>=0.7.0

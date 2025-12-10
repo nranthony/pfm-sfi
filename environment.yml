@@ -1,0 +1,43 @@
+name: flowmap
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python>=3.9,<3.12
+  - pip
+
+  # Core dependencies with CUDA 12.x support
+  # Compatible with Docker CUDA 12.6.3 and driver CUDA 12.7
+  - pytorch>=2.0.0
+  - pytorch-cuda=12.1
+  - numpy>=1.24.0
+
+  # Visualization and I/O dependencies
+  - matplotlib>=3.5.0
+  - imageio>=2.0.0
+  - pillow>=9.0.0
+  - vtk>=9.0.0
+
+  # Pip dependencies (not available via conda or require specific versions)
+  - pip:
+    - taichi>=1.7.0
+    - loguru>=0.7.0
+    - meshio>=5.0.0
+    - usd-core>=23.0
+    - PyOpenGL>=3.1.0
+    - glfw>=2.0.0
+
+# Platform-specific notes:
+# - This environment requires an NVIDIA GPU with CUDA support
+# - Docker container: nvidia/cuda:12.6.3-base-ubuntu24.04
+# - Driver: CUDA 12.7 compatible
+# - 2D simulations: minimum 3GB GPU memory
+# - 3D simulations: minimum 10.5GB GPU memory
+#
+# CUDA version notes:
+# - pytorch-cuda=12.1 is compatible with CUDA 12.6.3/12.7 (backward compatible)
+# - Alternative: pytorch-cuda=12.4 (also compatible)
+# - PyTorch includes necessary CUDA runtime libraries
