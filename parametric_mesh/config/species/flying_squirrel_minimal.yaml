@@ -1,0 +1,61 @@
+# Minimal Flying Squirrel Configuration
+# Simplest test case for end-to-end workflow
+
+# @package _global_
+
+metadata:
+  name: "flying_squirrel_minimal"
+  species: "Glaucomys volans"
+  version: "v0.1-test"
+  description: "Minimal test configuration for flying squirrel"
+
+# Override trunk length for small test model
+armature:
+  trunk_length: 0.20
+
+# Patagium spline definitions
+patagium:
+  # Main wing membrane (wrist to ankle)
+  splines:
+    main_patagium:
+      type: "bezier"
+      anchors:
+        - "wrist"
+        - "ankle"
+      control_points:
+        - weight: 0.5
+          offset: [0.0, 0.08, 0.0]  # Outward bulge
+      subdivision: 20  # Number of edge points
+
+    # Propatagium (neck to wrist)
+    propatagium:
+      type: "bezier"
+      anchors:
+        - "neck"
+        - "wrist"
+      control_points:
+        - weight: 0.5
+          offset: [0.0, 0.03, 0.01]
+      subdivision: 12
+
+    # Uropatagium (ankle to hip - optional, disabled for minimal)
+    uropatagium:
+      enabled: false
+
+  # Mesh generation for membrane
+  mesh_generation:
+    method: "boundary_fill"  # Uses Grid Fill in Blender
+    subdivision_density: 2   # Subdivision levels after fill
+    edge_smoothing: 0.3      # Smooth boundary edges
+    triangle_target: 5000    # Target triangle count for membrane
+
+# Body mesh (simple for minimal test)
+body_mesh:
+  method: "skin_modifier"  # Use armature + skin modifier
+  head:
+    radius: 0.04
+  torso:
+    radius: 0.035
+  limbs:
+    radius: 0.012
+  merge_threshold: 0.001

@@ -1,0 +1,45 @@
+# Flying-squirrel wind-tunnel starter config.
+#
+# Usage:
+#   cd 3D
+#   IBM_CLOTH_MODE=yaml IBM_CLOTH_CONFIG=configs/squirrel.yaml python run.py
+#
+# Also set `scenario = "glide_wind"` in hyperparameters.py to switch the fluid
+# initializer from vortex rings to uniform inflow. Stage-0 shakedown:
+# temporarily lower res_x/res_y/res_z in hyperparameters.py and
+# device_memory_GB in run.py:12 (see plan file).
+#
+# Coordinates below are in the post-normalization domain frame: TrianMesh
+# recenters the mesh to the unit cube then applies `global_scale` and
+# translates by `repose_position`. Tune repose + fixed_region bbox after the
+# first stage-0 run — open solid_0000.ply in Blender/Paraview and read off
+# where the torso actually lands.
+
+metadata:
+  name: squirrel           # expects assets/mesh/squirrel.obj
+
+material_properties:
+  global_scale: 0.35
+  repose_position: [0.25, 0.5, 0.5]
+  regions:
+    membrane:
+      density: 1.5
+      length_constraint_alpha: 0.02    # patagium stretch compliance; larger = more elastic
+      bend_constraint_alpha: 4000      # patagium bend stiffness; larger = less rigid
+
+simulation:
+  solve_iters: 50
+  dt: 0.0005
+  gravity: [0.0, 0.0, 0.0]             # wind-tunnel: no body force. Free-glide: e.g. [0, 0, -3]
+
+constraints:
+  # Torso pin: vertices inside this axis-aligned box are held fixed.
+  # For a centered squirrel with repose [0.25, 0.5, 0.5] and scale 0.35, a
+  # small box around the body center pins the torso without catching limbs.
+  fixed_region:
+    type: bbox
+    min: [0.22, 0.47, 0.47]
+    max: [0.30, 0.53, 0.53]
+  # Alternate: drive pinning from assets/mesh/squirrel_metadata.json
+  # fixed_region:
+  #   type: indices    # reads metadata['fixed_indices']

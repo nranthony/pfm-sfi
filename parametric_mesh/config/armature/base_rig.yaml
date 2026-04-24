@@ -1,0 +1,60 @@
+# Base Armature Configuration
+# Bone lengths are relative to trunk_length (thoracic + lumbar spine combined)
+
+# Reference measurement
+trunk_length: 0.20  # Combined thoracic + lumbar length (in Blender units)
+
+# Bone lengths (as proportion of trunk_length)
+bone_lengths:
+  # Spine segments (from pelvis to neck)
+  spine:
+    pelvis: 0.15      # 0.15 * trunk_length
+    lumbar: 0.20
+    thoracic_lower: 0.25
+    thoracic_upper: 0.20
+    neck: 0.20
+
+  # Tail segments
+  tail:
+    base: 0.30
+    mid: 0.25
+    tip: 0.20
+
+  # Forelimb (relative to trunk)
+  forelimb:
+    shoulder_to_elbow: 0.75
+    elbow_to_wrist: 0.70
+    wrist_to_fingertip: 0.15  # Small hand extension
+
+  # Hindlimb (relative to trunk)
+  hindlimb:
+    hip_to_knee: 0.60
+    knee_to_ankle: 0.65
+    ankle_to_toe: 0.10
+
+# Bone angles (Euler XYZ in degrees)
+bone_angles:
+  forelimb_spread: 75.0    # Lateral spread from body
+  hindlimb_spread: 80.0    # Lateral spread from body
+  spine_curvature: [0, 0, 5, 5, 0]  # Slight dorsal curve
+  tail_curl: [0, -5, -10]  # Ventral curl
+  limb_forward_angle: 45.0  # Limbs angled forward for gliding pose
+
+# Anchor points for patagium attachment
+# Defined as offsets from bone positions (local coordinates)
+anchor_points:
+  neck:
+    bone: "Neck"
+    offset: [0.0, 0.05, 0.0]  # Slight lateral offset
+
+  wrist:
+    bone: "Wrist_L"
+    offset: [0.0, 0.0, 0.0]
+
+  ankle:
+    bone: "Ankle_L"
+    offset: [0.0, 0.0, 0.0]
+
+  hip:
+    bone: "Hip_L"
+    offset: [0.0, 0.02, 0.0]

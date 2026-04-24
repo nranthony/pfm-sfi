@@ -1,0 +1,38 @@
+# Available Appendage Types for Gliding Mammals
+# Enable/disable and configure cartilage extensions
+
+appendages:
+  wrist_styloid:
+    enabled: true
+    length: 0.15  # Relative to trunk_length
+    angle: 15.0   # Degrees outward from wrist
+    diameter: 0.005  # Cartilage rod diameter
+
+  elbow_spur:
+    enabled: false
+    length: 0.08
+    angle: 20.0
+    diameter: 0.004
+
+  ankle_spur:
+    enabled: false
+    length: 0.10
+    angle: 10.0
+    diameter: 0.005
+
+  tail_cartilage:
+    enabled: false
+    length: 0.12
+    angle: 0.0
+    diameter: 0.003
+
+  neck_fold_support:
+    enabled: false
+    length: 0.05
+    angle: 0.0
+    diameter: 0.003
+
+# Appendage material properties (if different from main membrane)
+material:
+  density: 2.0  # Slightly denser than membrane
+  stiffness_multiplier: 1.5  # Stiffer than membrane

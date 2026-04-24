@@ -158,6 +158,18 @@ def init_vorts_headon(X, u, smoke1, smoke2):
         
     add_fields(smoke1, smoke2, smoke1, 1.0)
 
+@ti.kernel
+def _fill_uniform_velocity(u: ti.template(), U: ti.f32):
+    for I in ti.grouped(u):
+        u[I] = ti.Vector([U, 0.0, 0.0])
+
+def init_uniform_flow(X, u, smoke1, smoke2, U: float):
+    """Wind-tunnel scenario: uniform +X inflow, quiescent smoke.
+    Body-pinning in the mesh holds the animal stationary while the flow passes."""
+    smoke1.fill(0.)
+    smoke2.fill(0.)
+    _fill_uniform_velocity(u, U)
+
 def init_vorts_oblique(X, u, smoke1, smoke2):
     smoke1.fill(0.)
     smoke2.fill(0.)

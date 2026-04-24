@@ -34,6 +34,13 @@ gravity = 0
 from_frame = 0
 total_frames = 1500
 exp_name = "3D_cloth4"  # "3D_four_vorts_CF" #"3D_four_vorts_CF_MCM"
+
+# Fluid-init scenario selector (consumed by init_vorts() in run.py):
+#   "vorts_oblique" — two counter-rotating rings in still air (original default)
+#   "glide_wind"    — uniform +X inflow; body held stationary via fixed_region pin
+#   "glide_free"    — still air; body free-falls/glides under gravity (no pin)
+scenario = "vorts_oblique"
+inflow_U = 1.5          # used when scenario == "glide_wind"
 use_total_steps = False
 total_steps = 1
 

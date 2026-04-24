@@ -1,0 +1,9 @@
+# Test outputs
+outputs/
+fixtures/*.blend
+fixtures/*.obj
+__pycache__/
+*.pyc
+
+# Generated during tests
+*.log

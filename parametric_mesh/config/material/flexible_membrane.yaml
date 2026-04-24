@@ -1,0 +1,42 @@
+# Material Properties for Flexible Membrane
+# Maps to IBM cloth simulation parameters
+
+material_properties:
+  # Global mesh settings
+  global_scale: 0.5
+  repose_position: [0.3, 0.5, 0.5]
+
+  # Material regions
+  regions:
+    membrane:
+      density: 1.5
+      length_constraint_alpha: 0.02
+      bend_constraint_alpha: 4000
+      triangle_density: "high"
+      vertex_group_name: "membrane"
+
+    body:
+      density: 2.0
+      length_constraint_alpha: 0.005
+      bend_constraint_alpha: 8000
+      triangle_density: "medium"
+      vertex_group_name: "body"
+
+    limbs:
+      density: 2.5
+      length_constraint_alpha: 0.01
+      bend_constraint_alpha: 6000
+      triangle_density: "low"
+      vertex_group_name: "limbs"
+
+# Fixed constraints (bone-based)
+constraints:
+  fixed_bones:
+    - "Spine_Pelvis"
+    - "Spine_Lumbar"
+    - "Spine_Thoracic_Lower"
+
+  # Skin weight settings for Blender visualization
+  skin_weights:
+    torso_influence: 1.0
+    limb_falloff: 0.5  # How quickly influence drops off along limbs

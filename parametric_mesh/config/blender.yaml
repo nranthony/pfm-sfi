@@ -1,0 +1,22 @@
+# Blender Configuration
+# Platform-specific Blender executable paths
+
+# Default blender command (assumes blender is in PATH)
+blender_cmd: "blender"
+
+# Platform-specific paths (override blender_cmd if set)
+# Set the one for your platform, leave others as null
+
+windows_path: "C:\\Blender Foundation\\stable\\blender-4.5.5-windows-x64\\blender.exe"
+linux_path: null
+macos_path: null
+
+# Blender version requirements
+min_version: "3.6.0"
+recommended_version: "4.5.5"
+max_version: "4.9.99"  # Avoid v5 for now
+
+# Execution settings
+background_mode: true
+suppress_output: false  # Set true to hide Blender console output
+python_unbuffered: true  # For real-time output

@@ -1,0 +1,51 @@
+# Base Hydra Configuration for Parametric Mesh Generation
+# This file defines the default configuration structure
+
+defaults:
+  - armature: base_rig
+  - species: flying_squirrel_minimal
+  - material: flexible_membrane
+  - appendages: squirrel_standard
+  - blender: blender
+  - _self_
+
+metadata:
+  name: "generated_animal"
+  version: "v1.0"
+  author: "parametric_system"
+  description: "Auto-generated from config"
+
+# Output paths
+output:
+  mesh_dir: "generated/meshes"
+  planform_dir: "generated/planforms"
+  sim_config_dir: "generated/sim_configs"
+  blend_file: true  # Export .blend file for manual refinement
+  obj_file: true    # Export .obj for simulation
+  metadata_file: true  # Export metadata JSON
+
+# Export settings
+export:
+  planiform:
+    enabled: true
+    views: ["top"]  # Options: top, side, front
+    show_bones: true
+    show_splines: true
+    show_outline: true
+
+  mesh:
+    triangulate: true
+    apply_modifiers: true
+    validate: true  # Run mesh quality checks
+
+# Simulation integration
+simulation:
+  integration_method: "yaml_loader"  # Uses base class + YAML loading
+  auto_generate_config: true
+  grid_resolution: [256, 128, 128]
+  total_frames: 100  # Minimal test
+  visualize_dt: 0.05
+  CFL: 0.25
+  solve_iters: 50
+  dt: 0.0005
+  gravity: [0.0, 5.0, -3.0]

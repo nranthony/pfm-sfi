@@ -398,9 +398,16 @@ def clamp_smoke(smoke0: ti.template(), smoke1: ti.template(),
         smoke1[i,j,k] = ti.math.clamp(smoke1[i,j,k], mini, maxi)
 
 def init_vorts():
-    init_vorts_oblique(X, u, smoke, tmp_smoke)
-    # init_vorts_leapfrog(X, u)
-    #init_vorts_headon(X, u)
+    if scenario == "glide_wind":
+        init_uniform_flow(X, u, smoke, tmp_smoke, inflow_U)
+    elif scenario == "glide_free":
+        # Still air; body drives the flow via gravity + initial mesh velocity.
+        smoke.fill(0.)
+        tmp_smoke.fill(0.)
+    else:
+        init_vorts_oblique(X, u, smoke, tmp_smoke)
+        # init_vorts_leapfrog(X, u)
+        #init_vorts_headon(X, u)
 
 def stretch_T_and_advect_particles(particles_pos, T_x, T_y, T_z, F_x, F_y, F_z, u_x, u_y, u_z, dt):
     RK4_T_forward(particles_pos, T_x, T_y, T_z, F_x, F_y, F_z, u_x, u_y, u_z, dt)
